@@ -1,3 +1,5 @@
+import { cardTypes } from "./cardTypes";
+
 export default function isValidCardNumber(number) {
   if (!number) {
     return false;
@@ -5,9 +7,8 @@ export default function isValidCardNumber(number) {
   return validateByLuhnAlgorithm(number);
 }
 
-export function validateByLuhnAlgorithm(number) {
-  const numberStr = String(number);
-  const givenCheckDigit = +numberStr.substring(number.length - 1);
+export function validateByLuhnAlgorithm(numberStr) {
+  const givenCheckDigit = +numberStr.substring(numberStr.length - 1);
 
   let multiplier = 2;
   let sum = 0;
@@ -23,7 +24,20 @@ export function validateByLuhnAlgorithm(number) {
       multiplier = 2;
     }
   }
-  const calculatedCheckDigit = (10 - sum % 10) % 10;
+  const calculatedCheckDigit = (10 - (sum % 10)) % 10;
 
   return calculatedCheckDigit === givenCheckDigit;
+}
+
+export function determineCardType(numberStr) {
+  const char = numberStr.substring(0, 1);
+  if (char === "2") {
+    return cardTypes.mir;
+  } else if (char === "4") {
+    return cardTypes.visa;
+  } else if (char === "5") {
+    return cardTypes.mastercard;
+  } else {
+    return null;
+  }
 }

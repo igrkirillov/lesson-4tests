@@ -1,4 +1,5 @@
 export const cardTypes = {
   visa: "visa",
-  mastercard: "mastercard"
-}
+  mastercard: "mastercard",
+  mir: "mir",
+};

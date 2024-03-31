@@ -7,7 +7,7 @@ export default class Debauncer {
   exec(func, ...args) {
     clearTimeout(this.timerId);
     this.timerId = setTimeout(() => {
-      func(args);
+      func(...args);
     }, this.delayMs);
   }
 }
